@@ -13,6 +13,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import VaccinationChart from './VaccinationChart';
 import VaccinationTable from './VaccinationTable';
+import VaccinatorList from './VaccinatorList';
 
 export default function AdminDashboardContent() {
   const [totalVacunaciones, setTotalVacunaciones] = useState(0);
@@ -54,15 +55,14 @@ export default function AdminDashboardContent() {
 
   return (
     <>
-      {/* Bloque superior: ocupa 100% del ancho */}
-      <Grid container spacing={3} sx={{ mb: 10 }}>
+      {/* Bloque superior */}
+      <Grid container spacing={3} sx={{ mb: 4 }}>
         <Grid item xs={12} md={3}>
           <Paper elevation={3} sx={{ p: 3, height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
             <Typography variant="subtitle2" align="center">Número de vacunaciones realizadas</Typography>
             <Typography variant="h3" color="primary" align="center">{totalVacunaciones}</Typography>
           </Paper>
         </Grid>
-
         <Grid item xs={12} md={9}>
           <Paper elevation={3} sx={{ p: 2, height: '100%' }}>
             <VaccinationChart />
@@ -71,14 +71,13 @@ export default function AdminDashboardContent() {
       </Grid>
 
       {/* Bloque inferior */}
-      <Grid container spacing={3}>
+      <Grid container spacing={1}>
         <Grid item xs={12} md={6}>
           <VaccinationTable />
         </Grid>
-
         <Grid item xs={12} md={6}>
           <Paper elevation={0} sx={{ p: 2 }}>
-            <Grid container alignItems="center" sx={{ mb: 4 }}>
+            <Grid container alignItems="center" sx={{ mb: 3 }}>
               <Grid item sx={{ mr: 4 }}>
                 <Typography variant="h6">Lista de Vacunadores</Typography>
               </Grid>
@@ -88,22 +87,39 @@ export default function AdminDashboardContent() {
                 </Button>
               </Grid>
             </Grid>
-            <ul>
-              {vacunadores.map(v => (
-                <li key={v.id}>{v.nombre} - {v.email}</li>
-              ))}
-            </ul>
+            <VaccinatorList vacunadores={vacunadores} />
           </Paper>
         </Grid>
       </Grid>
 
-      {/* Popup */}
-      <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
+      {/* Popup ampliado */}
+      <Dialog open={openDialog} onClose={() => setOpenDialog(false)} fullWidth maxWidth="sm">
         <DialogTitle>Registrar Vacunador</DialogTitle>
-        <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 1 }}>
-          <TextField label="Nombre" value={formData.nombre} onChange={e => setFormData({ ...formData, nombre: e.target.value })} />
-          <TextField label="Email" value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} />
-          <TextField label="Contraseña" type="password" value={formData.contraseña} onChange={e => setFormData({ ...formData, contraseña: e.target.value })} />
+        <DialogContent
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 2,
+            mt: 1,
+            px: 2 // Espaciado horizontal para evitar cortes
+          }}
+        >
+          <TextField
+            label="Nombre completo"
+            value={formData.nombre}
+            onChange={e => setFormData({ ...formData, nombre: e.target.value })}
+          />
+          <TextField
+            label="Email"
+            value={formData.email}
+            onChange={e => setFormData({ ...formData, email: e.target.value })}
+          />
+          <TextField
+            label="Contraseña"
+            type="password"
+            value={formData.contraseña}
+            onChange={e => setFormData({ ...formData, contraseña: e.target.value })}
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setOpenDialog(false)}>Cancelar</Button>

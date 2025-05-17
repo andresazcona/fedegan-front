@@ -17,6 +17,7 @@ import { useAuth } from '../utils/auth';
 import axios from 'axios';
 import logo from '../assets/logo.png';
 import AdminDashboardContent from '../components/AdminDashboardContent';
+import VaccinatorDashboard from '../components/VaccinatorDashboard'; // Asegúrate de tener este archivo creado
 
 export default function Dashboard() {
   const { logout } = useAuth();
@@ -46,6 +47,11 @@ export default function Dashboard() {
       email: res.data.email || '',
       rol: res.data.rol || '',
     });
+
+    // Guardar ID para formulario si es vacunador
+    if (res.data.rol === 'vacunador') {
+      localStorage.setItem('idVacunador', res.data.id);
+    }
   };
 
   useEffect(() => {
@@ -113,7 +119,9 @@ export default function Dashboard() {
           <Typography variant="h4" gutterBottom>
             Bienvenido, {perfil.nombre}
           </Typography>
-          <AdminDashboardContent />
+
+          {perfil.rol === 'admin' && <AdminDashboardContent />}
+          {perfil.rol === 'vacunador' && <VaccinatorDashboard />}
         </Container>
       </Box>
     </Box>

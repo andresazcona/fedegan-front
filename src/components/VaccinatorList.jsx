@@ -36,10 +36,11 @@ export default function VaccinatorList() {
   }
 
   return (
-    <TableContainer component={Paper} elevation={1}>
-      <Table size="small">
+    <TableContainer component={Paper} elevation={1} sx={{ maxHeight: 400, overflowY: 'auto' }}>
+      <Table size="small" stickyHeader>
         <TableHead>
           <TableRow>
+            <TableCell><strong>ID</strong></TableCell>
             <TableCell><strong>Nombre</strong></TableCell>
             <TableCell><strong>Email</strong></TableCell>
           </TableRow>
@@ -47,6 +48,7 @@ export default function VaccinatorList() {
         <TableBody>
           {vacunadores.map(v => (
             <TableRow key={v.id}>
+              <TableCell>{v.id}</TableCell>
               <TableCell>{v.nombre}</TableCell>
               <TableCell>{v.email}</TableCell>
             </TableRow>

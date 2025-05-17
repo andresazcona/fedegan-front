@@ -10,6 +10,9 @@ Este es el proyecto frontend para la aplicación **VacunEX**, una plataforma de 
 - Axios
 
 ## Capturas de pantalla
+![imagen](https://github.com/user-attachments/assets/cc84027f-dd69-460b-9e5f-2eadacb7c959)
+![imagen](https://github.com/user-attachments/assets/e319be99-7be3-45e0-91ae-53ebe3862766)
+![imagen](https://github.com/user-attachments/assets/b741c488-026c-4814-aaf8-8fea87ba4388)
 
 
 ## Instalación
